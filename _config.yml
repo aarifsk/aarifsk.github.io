@@ -1,0 +1,55 @@
+title: Musings of a novice
+description: My Attempts at doing computer stuff
+author: Aarif Shaikh
+github: https://github.com/aarifsk
+about: I am an M.Tech (Geoinformatics) student in IIT Bombay I am interested in NLP, HPC, Python, Full Stack development, and try to make cool stuff.
+disqus_shortname: blogPortfolioResume
+#google_analytics: UA-XXXXXXXX-Y
+avatar_url: /static/img/avatar.jpg
+
+enableTags: true
+tagarray: []
+
+collections:
+  project:
+    output: true
+    permalink: /project/:path/
+
+social:
+    - icon: fa-facebook
+      link: "https://facebook.com/aarifsk1618"
+    - icon: fa-twitter
+      link: "https://twitter.com/_aarifsk"
+    - icon: fa-linkedin
+      link: "https://www.linkedin.com/in/aarifsk"
+   # - icon: fa-stack-exchange
+   #   link: "#"
+    - icon: fa-github
+      link: "https://github.com/aarifsk"
+
+share:
+  twitter_username: _aarifsk
+ # fb_appid: 1749788565247320
+
+urls:
+    - text: About Me
+      url: /about/
+    - text: My Projects
+      url: /projects/
+    - text: XML Feed
+      url: /feed.xml
+
+url: "https://aarifsk.github.io"
+baseurl: ""
+paginate: 20
+per_page: 20
+paginate_path: "/page/:num/"
+markdown: kramdown
+gems:
+  - jekyll-paginate
+  - jekyll-gist
+
+compress_html:
+  clippings: all
+  comments: ["<!-- ", " -->"]
+  endings: all
