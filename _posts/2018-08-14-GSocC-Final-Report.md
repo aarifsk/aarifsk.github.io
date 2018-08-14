@@ -6,7 +6,8 @@ categories: [FOSS,python]
 image: GSOC.png
 ---
 # Google Summer of Code 2018 : Create Environmental Science Libraries in Python using the Workflow Paradigm for HPC
-## Organization name :- Earth Sciences Information Partners - National Oceanic & Atmospheric Administration
+
+### Organization name :- Earth Sciences Information Partners - National Oceanic & Atmospheric Administration
 
 ### *Mentors :-* Ryan Berkheimer(GST at NOAA NCEI) , Max Banas (DMME, Virginia)
 
@@ -64,7 +65,7 @@ We identified the problem of watershed delineation, which is a very common probl
 >Input of a sample flowdirection grid :- 
 [![Input](https://i.imgur.com/Nlo2zfE.png)](https://i.imgur.com/Nlo2zfE.png)
 
->Corresponding flow accumulation output as a netCDF raster
+>Corresponding flow accumulation output as a netCDF raster:- 
 [![Output](https://i.imgur.com/HXPZHQj.png)](https://i.imgur.com/HXPZHQj.png)
 
 
@@ -96,7 +97,7 @@ We identified the problem of watershed delineation, which is a very common probl
 
 ### TODO
 [Link to my proposal](https://docs.google.com/document/d/16J5oVnHwpkQzmASGKjDtQffLUg6GF92f7oPlu2AgQ1U/edit?usp=sharing)
-I feel that we have completed around 60 % in terms of deliverables compared to what we set out to do. However since this was a research-oriented project i can fondly look back to find that it's been an enriching experience for me in terms of learning as well as contributing.
+I feel that we have achieved most of what we set out to do in terms of deliverables, for the tough part is done in implementing the various phases through code. It is comparatively straightforward to replicate the code for the part that is still left. Since this was a research-oriented project i can fondly look back to find that it's been an enriching experience for me in terms of learning as well as contributing.
 - The Translated code won’t work directly. Work on creating python wrappers for the libraries in richdem repository so that it would work. 
 - Once the Code is working, make it work with dask and xarray 
 Ingest it as a library in ephemeral 
