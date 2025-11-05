@@ -86,7 +86,7 @@ layout: compress
     {% endif %}
 
     <!-- Font awesome icons -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- syntax highlighting CSS -->
     <link rel="stylesheet" href="/static/css/syntax.css">
     <!-- Bootstrap core CSS -->
@@ -124,9 +124,12 @@ layout: compress
           <div class="social">
             <ul>
               {% for link in site.social %}
-                <li><a href="{{ link.link }}" target="_blank"><i class="fa {{ link.icon }}"></i></a></li>
+                <li><a href="{{ link.link }}" target="_blank" aria-label="{{ link.icon }}"><i class="fa {{ link.icon }}"></i></a></li>
               {% endfor %}
             </ul>
+          </div>
+          <div class="theme-toggle" onclick="toggleTheme()" role="button" aria-label="Toggle dark mode" tabindex="0">
+            <div class="theme-toggle-slider"></div>
           </div>
           <div class="search" id="js-search">
             <input type="text" placeholder="(sitemap)~$ type to search" class="search__input form-control" id="js-search__input">
@@ -168,5 +171,41 @@ layout: compress
     <script src="/static/js/super-search.js"></script>
     <script src="/static/js/thickbox-compressed.js"></script>
     <script src="/static/js/projects.js"></script>
+
+    <!-- Theme Toggle Script -->
+    <script>
+      // Check for saved theme preference or default to light mode
+      const currentTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+
+      // Update toggle button state on page load
+      if (currentTheme === 'dark') {
+        document.querySelector('.theme-toggle').classList.add('dark');
+      }
+
+      function toggleTheme() {
+        const html = document.documentElement;
+        const toggle = document.querySelector('.theme-toggle');
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+
+        if (newTheme === 'dark') {
+          toggle.classList.add('dark');
+        } else {
+          toggle.classList.remove('dark');
+        }
+      }
+
+      // Keyboard support for theme toggle
+      document.querySelector('.theme-toggle').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleTheme();
+        }
+      });
+    </script>
   </body>
 </html>
