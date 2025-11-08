@@ -1,0 +1,102 @@
+---
+layout: modern
+---
+
+<!-- Profile Section -->
+<section class="profile-section">
+  <img src="{{ site.avatar_url }}" alt="{{ site.author }}" class="profile-avatar">
+  <h2 class="profile-name">{{ site.author }}</h2>
+  {% if site.about %}
+    <p class="profile-bio">{{ site.about }}</p>
+  {% endif %}
+
+  {% if site.social %}
+  <ul class="social-links">
+    {% for link in site.social %}
+      <li>
+        <a href="{{ link.link }}" target="_blank" rel="noopener" aria-label="{{ link.icon }}">
+          <i class="fa {{ link.icon }}"></i>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</section>
+
+<!-- Posts Section -->
+<section class="posts-section">
+  <h2>Recent Posts</h2>
+
+  <div class="posts-grid">
+    {% for post in paginator.posts %}
+      <article class="post-card">
+        <h3 class="post-title">
+          <a href="{{ post.url }}">{{ post.title }}</a>
+        </h3>
+
+        <div class="post-meta">
+          <time datetime="{{ post.date | date_to_xmlschema }}">
+            {{ post.date | date: "%B %d, %Y" }}
+          </time>
+          {% if post.categories %}
+            <span>•</span>
+            <div class="post-categories">
+              {% for category in post.categories %}
+                <a href="/category/{{ category }}" class="category-tag">{{ category }}</a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        {% if post.excerpt %}
+          <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+        {% endif %}
+      </article>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  {% if paginator.total_pages > 1 %}
+    <nav class="pagination" role="navigation" aria-label="Pagination">
+      <ul class="pagination">
+        {% if paginator.previous_page %}
+          <li>
+            <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" aria-label="Previous page">
+              <i class="fas fa-chevron-left"></i> Previous
+            </a>
+          </li>
+        {% else %}
+          <li>
+            <span class="disabled"><i class="fas fa-chevron-left"></i> Previous</span>
+          </li>
+        {% endif %}
+
+        {% for page in (1..paginator.total_pages) %}
+          {% if page == paginator.page %}
+            <li><span class="active">{{ page }}</span></li>
+          {% elsif page == 1 %}
+            <li><a href="/">{{ page }}</a></li>
+          {% else %}
+            <li>
+              <a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">
+                {{ page }}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+
+        {% if paginator.next_page %}
+          <li>
+            <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" aria-label="Next page">
+              Next <i class="fas fa-chevron-right"></i>
+            </a>
+          </li>
+        {% else %}
+          <li>
+            <span class="disabled">Next <i class="fas fa-chevron-right"></i></span>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+  {% endif %}
+</section>

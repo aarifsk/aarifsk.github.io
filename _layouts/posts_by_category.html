@@ -1,49 +1,53 @@
 ---
 layout: default
 ---
-<header class="post-header">
-  <h1 class="post-title">Articles by category: {{ page.categories }}</h1>
+
+<header style="text-align: center; margin-bottom: 3rem;">
+  <h1>{{ page.categories | capitalize }}</h1>
+  <p style="color: var(--text-light);">Browse all posts in this category</p>
 </header>
 
-<div class="post-content">
-  <hr />
+<!-- Category Filter -->
+<div style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-bottom: 3rem;">
   {% for category in site.categories %}
     {% capture category_slug %}{{ category | first }}{% endcapture %}
     {% for c_slug in category_slug %}
       {% if c_slug == page.categories %}
-        <button class="btn btn-sm btn-default active">{{ c_slug }}</button>
+        <span style="padding: 0.5rem 1rem; background: var(--accent); color: white; border-radius: 2rem; font-weight: 600;">
+          {{ c_slug }}
+        </span>
       {% else %}
-        <a href="/category/{{ c_slug }}" class="btn btn-sm btn-default">{{ c_slug }}</a>
+        <a href="/category/{{ c_slug }}" style="padding: 0.5rem 1rem; background: var(--bg-alt); border: 1px solid var(--border); border-radius: 2rem; font-weight: 600; transition: all 0.2s;">
+          {{ c_slug }}
+        </a>
       {% endif %}
     {% endfor %}
   {% endfor %}
-
-  <hr />
-  {% if site.categories[page.categories] %}
-    {% for post in site.categories[page.categories] %}
-      {% capture post_year %}{{ post.date | date: '%Y' }}{% endcapture %}
-      {% if forloop.first %}
-          <h4>{{ post_year }}</h4>
-          <div class="list-group">
-      {% endif %}
-
-      {% if forloop.first == false %}
-        {% assign previous_index = forloop.index0 | minus: 1 %}
-        {% capture previous_post_year %}{{ site.categories[page.categories][previous_index].date | date: '%Y' }}{% endcapture %}
-        {% if post_year != previous_post_year %}
-          </div>
-          <h4>{{ post_year }}</h4>
-          <div class="list-group">
-        {% endif %}
-      {% endif %}
-        <ul class="posts">
-          <li><a href="{{ post.url }}">{{ post.title }}</a> &raquo; <i><span>{{ post.date | date_to_string }}</span></i></li>
-        </ul>
-      {% if forloop.last %}
-        </div>
-      {% endif %}
-    {% endfor %}
-  {% else %}
-    <p>There are no posts in this categories.</p>
-  {% endif %}
 </div>
+
+<!-- Posts by Year -->
+{% if site.categories[page.categories] %}
+  <div class="posts-grid">
+    {% for post in site.categories[page.categories] %}
+      <article class="post-card">
+        <h3 class="post-title">
+          <a href="{{ post.url }}">{{ post.title }}</a>
+        </h3>
+
+        <div class="post-meta">
+          <time datetime="{{ post.date | date_to_xmlschema }}">
+            {{ post.date | date: "%B %d, %Y" }}
+          </time>
+        </div>
+
+        {% if post.excerpt %}
+          <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+        {% endif %}
+      </article>
+    {% endfor %}
+  </div>
+{% else %}
+  <p style="text-align: center; color: var(--text-light); padding: 3rem;">
+    There are no posts in this category yet.
+  </p>
+{% endif %}
